@@ -1,1 +1,7 @@
-export default function SequentialPngPreviewApp() { return <div>SequentialPngPreview placeholder</div>; }
+"use client";
+
+import SequentialPngPreview from "./components/SequentialPngPreview";
+
+export default function SequentialPngPreviewApp() {
+	return <SequentialPngPreview />;
+}
