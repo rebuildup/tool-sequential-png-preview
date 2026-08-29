@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { RawDOMContainer } from "../../../../external/ui/src/RawDOMContainer";
+import { RawDOMContainer } from "../../../../src/components/tools-ui/RawDOMContainer";
 import type { AnimationSettings, FrameData, PreviewMode } from "../types";
 import AnimationPlayer from "./AnimationPlayer";
 import ExportPanel from "./ExportPanel";
