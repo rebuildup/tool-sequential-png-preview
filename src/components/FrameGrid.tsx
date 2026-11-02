@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import type { FrameData } from "../types";
 import { formatFileSize } from "../utils/fileProcessor";
@@ -132,14 +131,19 @@ export default function FrameGrid({
 								background: "#fafafa",
 							}}
 						>
-							<Image
+							{/*
+							 * A plain <img> instead of `next/image`: the frames are
+							 * data URLs rendered unoptimized, so `next/image` only
+							 * wrapped an <img> anyway, and the Next runtime does not
+							 * exist in a standalone build.
+							 */}
+							<img
 								src={frame.dataUrl}
 								alt={`Frame ${index + 1}`}
 								width={frame.width}
 								height={frame.height}
 								style={{ width: "100%", height: "100%", objectFit: "contain" }}
 								loading="lazy"
-								unoptimized={true}
 							/>
 							<div
 								style={{
