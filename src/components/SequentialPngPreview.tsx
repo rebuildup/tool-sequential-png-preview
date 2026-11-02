@@ -1,9 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { RawDOMContainer } from "../../../../src/components/tools-ui/RawDOMContainer";
 import type { AnimationSettings, FrameData, PreviewMode } from "../types";
 import AnimationPlayer from "./AnimationPlayer";
+import { AppFrame } from "./AppFrame";
 import ExportPanel from "./ExportPanel";
 import FileUploader from "./FileUploader";
 import FrameGrid from "./FrameGrid";
@@ -22,7 +22,10 @@ export default function SequentialPngPreview() {
 		quality: "medium",
 	});
 
-	const intervalRef = useRef<NodeJS.Timeout | null>(null);
+	// `ReturnType<typeof setInterval>` keeps the timer type browser-native:
+	// the NodeJS namespace needs @types/node, which a static browser bundle
+	// has no use for.
+	const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
 	const handleFilesLoaded = useCallback((loadedFrames: FrameData[]) => {
 		setFrames(loadedFrames);
@@ -90,14 +93,7 @@ export default function SequentialPngPreview() {
 	}, []);
 
 	return (
-		<RawDOMContainer
-			title="Sequential PNG Preview"
-			breadcrumbs={[
-				{ label: "Home", href: "/" },
-				{ label: "Tools", href: "/tools" },
-				{ label: "Sequential PNG Preview" },
-			]}
-		>
+		<AppFrame title="Sequential PNG Preview">
 			<div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
 				{frames.length === 0 ? (
 					<FileUploader onFilesLoaded={handleFilesLoaded} />
@@ -304,6 +300,6 @@ export default function SequentialPngPreview() {
 					</>
 				)}
 			</div>
-		</RawDOMContainer>
+		</AppFrame>
 	);
 }
